@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://ddoeholnt2lip"]
+
+[ext_resource type="Script" path="res://ui.gd" id="1_k1ovu"]
+[ext_resource type="PackedScene" uid="uid://crnrm71rqmepv" path="res://Towers/RedTowerPanel.tscn" id="2_5wnq8"]
+
+[node name="UI" type="CanvasLayer"]
+script = ExtResource("1_k1ovu")
+
+[node name="Panel" type="Panel" parent="."]
+offset_left = 2944.0
+offset_right = 3584.0
+offset_bottom = 2048.0
+
+[node name="TowerContainer" type="VFlowContainer" parent="."]
+offset_left = 3008.0
+offset_top = 64.0
+offset_right = 3179.0
+offset_bottom = 704.0
+scale = Vector2(3, 3)
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+
+[node name="RedTowerPanel" parent="TowerContainer" instance=ExtResource("2_5wnq8")]
+offset_bottom = 80.0
+
+[node name="RedTowerPanel2" parent="TowerContainer" instance=ExtResource("2_5wnq8")]
+offset_top = 90.0
+offset_bottom = 170.0
+
+[node name="RedTowerPanel3" parent="TowerContainer" instance=ExtResource("2_5wnq8")]
+offset_top = 180.0
+offset_bottom = 260.0

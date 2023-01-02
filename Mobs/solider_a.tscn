@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://jn2rceiqhdmc"]
+
+[ext_resource type="Script" path="res://Mobs/solider.gd" id="1_0wax5"]
+[ext_resource type="Texture2D" uid="uid://dbfspariweuj2" path="res://tower-defense-top-down/PNG/Default size/towerDefense_tile245.png" id="1_t12l6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2nkuh"]
+
+[node name="Solider A" type="CharacterBody2D"]
+scale = Vector2(3, 3)
+script = ExtResource("1_0wax5")
+speed = 300
+
+[node name="TowerDefenseTile245" type="Sprite2D" parent="."]
+texture = ExtResource("1_t12l6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_2nkuh")

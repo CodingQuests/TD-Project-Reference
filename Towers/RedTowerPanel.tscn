@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://crnrm71rqmepv"]
+
+[ext_resource type="Script" path="res://Towers/RedTowerPanel.gd" id="1_ma8ma"]
+[ext_resource type="Texture2D" uid="uid://c2mklvxtr2guy" path="res://tower-defense-top-down/PNG/Default size/towerDefense_tile250.png" id="1_rjp0k"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ea6on"]
+bg_color = Color(0.0666667, 0.0784314, 0.0588235, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="RedTowerPanel" type="Panel"]
+modulate = Color(1, 1, 1, 0.584314)
+custom_minimum_size = Vector2(80, 80)
+offset_right = 80.0
+offset_bottom = 64.025
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_ea6on")
+script = ExtResource("1_ma8ma")
+
+[node name="TowerDefenseTile250" type="Sprite2D" parent="."]
+position = Vector2(40, 40)
+scale = Vector2(1.23438, 1.25)
+texture = ExtResource("1_rjp0k")
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
