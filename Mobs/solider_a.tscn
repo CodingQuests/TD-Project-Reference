@@ -1,9 +1,26 @@
-[gd_scene load_steps=4 format=3 uid="uid://jn2rceiqhdmc"]
+[gd_scene load_steps=7 format=3 uid="uid://jn2rceiqhdmc"]
 
 [ext_resource type="Script" path="res://Mobs/solider.gd" id="1_0wax5"]
 [ext_resource type="Texture2D" uid="uid://dbfspariweuj2" path="res://tower-defense-top-down/PNG/Default size/towerDefense_tile245.png" id="1_t12l6"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2nkuh"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ihlb"]
+bg_color = Color(0.937255, 0, 0.00784314, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0yujj"]
+bg_color = Color(0, 1, 0, 1)
+
+[sub_resource type="GDScript" id="GDScript_lq2ab"]
+script/source = "extends ProgressBar
+
+
+func _ready():
+	self.max_value = get_parent().Health
+	
+func _process(delta):
+	self.value = get_parent().Health
+"
 
 [node name="Solider A" type="CharacterBody2D"]
 scale = Vector2(3, 3)
@@ -15,3 +32,15 @@ texture = ExtResource("1_t12l6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_2nkuh")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = -21.0
+offset_top = -27.0
+offset_right = 22.0
+offset_bottom = -21.0
+theme_override_styles/background = SubResource("StyleBoxFlat_5ihlb")
+theme_override_styles/fill = SubResource("StyleBoxFlat_0yujj")
+max_value = 10.0
+value = 10.0
+show_percentage = false
+script = SubResource("GDScript_lq2ab")
