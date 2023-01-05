@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cxmourwhy2hg6"]
+[gd_scene load_steps=19 format=3 uid="uid://cxmourwhy2hg6"]
 
 [ext_resource type="Script" path="res://Towers/RedBullet.gd" id="1_80d8d"]
 [ext_resource type="Texture2D" uid="uid://c2mklvxtr2guy" path="res://tower-defense-top-down/PNG/Default size/towerDefense_tile250.png" id="1_s1hbh"]
@@ -6,13 +6,13 @@
 [ext_resource type="Texture2D" uid="uid://ddv7aga2ackrn" path="res://tower-defense-top-down/PNG/Default size/towerDefense_tile297.png" id="4_72tkk"]
 [ext_resource type="Texture2D" uid="uid://ejml0b6ac3kx" path="res://tower-defense-top-down/PNG/Default size/towerDefense_tile296.png" id="5_pjxk6"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5ib3q"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1fspn"]
 size = Vector2(87, 79)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_l4ifp"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_id8qf"]
 radius = 400.0
 
-[sub_resource type="GDScript" id="GDScript_1itng"]
+[sub_resource type="GDScript" id="GDScript_5tlqh"]
 script/source = "extends CollisionShape2D
 
 
@@ -27,14 +27,17 @@ func _draw():
 	draw_circle(cen, rad, col)
 "
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_blh2i"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fyn7l"]
+size = Vector2(97, 87)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5010x"]
 bg_color = Color(1, 0, 0, 1)
 corner_radius_top_left = 450
 corner_radius_top_right = 450
 corner_radius_bottom_right = 450
 corner_radius_bottom_left = 450
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ixh74"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iyr3l"]
 bg_color = Color(0.129412, 0.137255, 0.141176, 0.894118)
 border_width_left = 5
 border_width_top = 5
@@ -47,7 +50,7 @@ corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lckol"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_op0du"]
 bg_color = Color(0.113725, 0.678431, 0.72549, 1)
 border_width_left = 15
 border_width_top = 15
@@ -60,7 +63,7 @@ corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mrn1m"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ds40w"]
 bg_color = Color(0, 0.631373, 0.972549, 1)
 border_width_left = 15
 border_width_top = 15
@@ -73,7 +76,7 @@ corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pb4ee"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ohgn"]
 bg_color = Color(0.956863, 0.0431373, 0.054902, 1)
 border_width_left = 15
 border_width_top = 15
@@ -86,21 +89,25 @@ corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6e3hi"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e6m87"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_syreg"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d2gy8"]
 bg_color = Color(0.937255, 0, 0.00784314, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uijlm"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5nmc3"]
 bg_color = Color(0, 1, 0, 1)
 
-[sub_resource type="GDScript" id="GDScript_mwpr1"]
+[sub_resource type="GDScript" id="GDScript_oratb"]
 script/source = "extends ProgressBar
 
+func _ready():
+	self.max_value = get_node(\"Timer\").wait_time
+	self.value = self.max_value
+	
 
 func _process(delta):
-	self.max_value = get_node(\"Timer\").wait_time
-	self.value = get_node(\"Timer\").time_left
+	if !get_node(\"Timer\").is_stopped():
+		self.value = get_node(\"Timer\").time_left
 "
 
 [node name="RedBulletTower" type="StaticBody2D"]
@@ -114,7 +121,7 @@ position = Vector2(54, -4)
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
 position = Vector2(-4, 0)
-shape = SubResource("RectangleShape2D_5ib3q")
+shape = SubResource("RectangleShape2D_1fspn")
 
 [node name="TowerDefenseTile250" type="Sprite2D" parent="."]
 rotation = 1.5708
@@ -127,8 +134,18 @@ metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Tower"]
 modulate = Color(0, 1, 0.0666667, 0.298039)
-shape = SubResource("CircleShape2D_l4ifp")
-script = SubResource("GDScript_1itng")
+shape = SubResource("CircleShape2D_id8qf")
+script = SubResource("GDScript_5tlqh")
+metadata/_edit_lock_ = true
+
+[node name="TowerDetector" type="Area2D" parent="."]
+collision_layer = 7
+collision_mask = 7
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TowerDetector"]
+position = Vector2(-5.5, 0.5)
+shape = SubResource("RectangleShape2D_fyn7l")
 metadata/_edit_lock_ = true
 
 [node name="BulletContainer" type="Node" parent="."]
@@ -139,7 +156,7 @@ offset_left = -400.0
 offset_top = -400.0
 offset_right = 400.0
 offset_bottom = 400.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_blh2i")
+theme_override_styles/panel = SubResource("StyleBoxFlat_5010x")
 
 [node name="Upgrade" type="Node" parent="."]
 
@@ -150,7 +167,7 @@ offset_top = 81.0
 offset_right = 4.0
 offset_bottom = 273.0
 scale = Vector2(2, 2)
-theme_override_styles/panel = SubResource("StyleBoxFlat_ixh74")
+theme_override_styles/panel = SubResource("StyleBoxFlat_iyr3l")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Upgrade/Upgrade"]
 offset_left = 43.0
@@ -161,10 +178,10 @@ theme_override_constants/separation = 60
 
 [node name="Range" type="Button" parent="Upgrade/Upgrade/HBoxContainer"]
 custom_minimum_size = Vector2(125, 125)
-theme_override_styles/normal = SubResource("StyleBoxFlat_lckol")
-theme_override_styles/hover = SubResource("StyleBoxFlat_mrn1m")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_pb4ee")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_6e3hi")
+theme_override_styles/normal = SubResource("StyleBoxFlat_op0du")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ds40w")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_0ohgn")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_e6m87")
 
 [node name="TowerDefenseTile110" type="Sprite2D" parent="Upgrade/Upgrade/HBoxContainer/Range"]
 position = Vector2(63.119, 62.183)
@@ -181,10 +198,10 @@ vertical_alignment = 1
 
 [node name="AttackSpeed" type="Button" parent="Upgrade/Upgrade/HBoxContainer"]
 custom_minimum_size = Vector2(125, 125)
-theme_override_styles/normal = SubResource("StyleBoxFlat_lckol")
-theme_override_styles/hover = SubResource("StyleBoxFlat_mrn1m")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_pb4ee")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_6e3hi")
+theme_override_styles/normal = SubResource("StyleBoxFlat_op0du")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ds40w")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_0ohgn")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_e6m87")
 
 [node name="TowerDefenseTile297" type="Sprite2D" parent="Upgrade/Upgrade/HBoxContainer/AttackSpeed"]
 position = Vector2(63.119, 62.183)
@@ -201,10 +218,10 @@ vertical_alignment = 1
 
 [node name="Power" type="Button" parent="Upgrade/Upgrade/HBoxContainer"]
 custom_minimum_size = Vector2(125, 125)
-theme_override_styles/normal = SubResource("StyleBoxFlat_lckol")
-theme_override_styles/hover = SubResource("StyleBoxFlat_mrn1m")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_pb4ee")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_6e3hi")
+theme_override_styles/normal = SubResource("StyleBoxFlat_op0du")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ds40w")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_0ohgn")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_e6m87")
 
 [node name="TowerDefenseTile296" type="Sprite2D" parent="Upgrade/Upgrade/HBoxContainer/Power"]
 position = Vector2(63.119, 62.183)
@@ -224,11 +241,10 @@ offset_left = -64.0
 offset_top = -81.0
 offset_right = 64.0
 offset_bottom = -58.0
-theme_override_styles/background = SubResource("StyleBoxFlat_syreg")
-theme_override_styles/fill = SubResource("StyleBoxFlat_uijlm")
-value = 10.0
+theme_override_styles/background = SubResource("StyleBoxFlat_d2gy8")
+theme_override_styles/fill = SubResource("StyleBoxFlat_5nmc3")
 show_percentage = false
-script = SubResource("GDScript_mwpr1")
+script = SubResource("GDScript_oratb")
 
 [node name="Timer" type="Timer" parent="Upgrade/ProgressBar"]
 wait_time = 3.0

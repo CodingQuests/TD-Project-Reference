@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="TD Project Reference"
-run/main_scene="res://main.tscn"
+run/main_scene="res://MainMenu.tscn"
 config/features=PackedStringArray("4.0", "Mobile")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Game="*res://Global/Game.gd"
 
 [display]
 

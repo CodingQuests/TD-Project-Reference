@@ -1,10 +1,30 @@
-[gd_scene load_steps=3 format=3 uid="uid://ddoeholnt2lip"]
+[gd_scene load_steps=4 format=3 uid="uid://ddoeholnt2lip"]
 
-[ext_resource type="Script" path="res://ui.gd" id="1_k1ovu"]
 [ext_resource type="PackedScene" uid="uid://crnrm71rqmepv" path="res://Towers/RedTowerPanel.tscn" id="2_5wnq8"]
 
+[sub_resource type="GDScript" id="GDScript_fdl0b"]
+script/source = "extends Label
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	self.text = \"Gold: \" + str(Game.Gold)
+"
+
+[sub_resource type="GDScript" id="GDScript_puusd"]
+script/source = "extends Label
+
+
+func _process(delta):
+	self.text = \"HP: \" + str(Game.Health)
+"
+
 [node name="UI" type="CanvasLayer"]
-script = ExtResource("1_k1ovu")
 
 [node name="Panel" type="Panel" parent="."]
 offset_left = 2944.0
@@ -30,3 +50,18 @@ offset_bottom = 170.0
 [node name="RedTowerPanel3" parent="Panel/TowerContainer" instance=ExtResource("2_5wnq8")]
 offset_top = 180.0
 offset_bottom = 260.0
+
+[node name="Gold" type="Label" parent="."]
+offset_left = 512.0
+offset_right = 1024.0
+offset_bottom = 140.0
+theme_override_font_sizes/font_size = 100
+text = "gold"
+script = SubResource("GDScript_fdl0b")
+
+[node name="Health" type="Label" parent="."]
+offset_right = 512.0
+offset_bottom = 140.0
+theme_override_font_sizes/font_size = 100
+text = "gold"
+script = SubResource("GDScript_puusd")

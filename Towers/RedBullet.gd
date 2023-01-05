@@ -11,11 +11,14 @@ var range = 400
 
 @onready var timer = get_node("Upgrade/ProgressBar/Timer")
 var startShooting = false
+
+
 func _process(delta):
 	get_node("Upgrade/ProgressBar").global_position = self.position + Vector2(-64,-81)
 	if is_instance_valid(curr):
 		self.look_at(curr.global_position)
 		if timer.is_stopped():
+			Shoot()
 			timer.start()
 	else:
 		for i in get_node("BulletContainer").get_child_count():
@@ -53,8 +56,6 @@ func _on_tower_body_exited(body):
 	currTargets = get_node("Tower").get_overlapping_bodies()
 
 
-
-
 func _on_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.button_mask == 1:
 		var towerPath = get_tree().get_root().get_node("Main/Towers")
@@ -67,18 +68,22 @@ func _on_input_event(viewport, event, shape_idx):
 
 func _on_range_pressed():
 	range += 30
-	
+	if Game.Gold >= 10:
+		Game.Gold -= 10
+		
 func _on_attack_speed_pressed():
 	if reload <= 2:
 		
 		reload += 0.1
 	timer.wait_time = 3 - reload
-	print(reload)
-
+	if Game.Gold >= 10:
+		Game.Gold -= 10
+		
 func _on_power_pressed():
 	bulletDamage += 1
-
-
+	if Game.Gold >= 10:
+		Game.Gold -= 10
+		
 func _on_timer_timeout():
 	Shoot()
 
